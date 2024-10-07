@@ -65,25 +65,27 @@ class LegendDatailFragment : Fragment() {
 
                     binding.apply {
                         pbLoading.visibility = View.GONE
-                        tvName.text = response.body()?.name
+                        val legend = response.body()
+
+                        tvName.text = legend?.name
+                        tvAlias.text = legend?.alias ?: "Alias not available"
+                        tvBirthdate.text = legend?.birthdate ?: "Birthdate not available"
+                        tvOccupation.text = legend?.occupation ?: "Occupation not available"
+                        tvPRBenchPress.text = legend?.prBenchPress ?: "PR not available"
+                        tvPRSquat.text = legend?.prSquat ?: "PR not available"
+                        tvPRDeadlift.text = legend?.prDeadlift ?: "PR not available"
+                        tvLongDesc.text = legend?.description ?: "Description not available"
+
+                        Glide.with(requireActivity())
+                            .load(legend?.image)
+                            .into(ivImage)
+                    }
 
 
-                    Glide.with(requireActivity())
-                        .load(response.body()?.image)
-                        .into(ivImage)
-
-
-                        tvLongDesc.text = response.body()?.description
 
 
 
-                        //tvLongDesc.text = response.body()?.longDesc
                 }
-
-
-
-
-            }
 
                 override fun onFailure(p0: Call<LegendDetailsDto>, p1: Throwable) {
 

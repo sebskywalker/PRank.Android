@@ -28,13 +28,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-
+                    <!-- Nombre de la leyenda -->
                     <TextView
                         android:id="@+id/tvName"
                         android:layout_width="match_parent"
@@ -46,6 +46,7 @@
                         android:textSize="25sp"
                         tools:text="Legend Name" />
 
+                    <!-- Imagen de la leyenda -->
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/ivImage"
                         android:layout_width="match_parent"
@@ -55,6 +56,19 @@
                         app:riv_corner_radius="10dp"
                         tools:src="@mipmap/ic_launcher" />
 
+                    <!-- Alias de la leyenda como subtítulo -->
+                    <TextView
+                        android:id="@+id/tvAlias"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal"
+                        android:textStyle="italic"
+                        android:textSize="18sp"
+                        android:paddingTop="8dp"
+                        tools:text="The Austrian Oak" />
+
+                    <!-- Descripción de la leyenda -->
                     <TextView
                         android:id="@+id/tvLongDesc"
                         android:layout_width="match_parent"
@@ -67,6 +81,101 @@
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         tools:text="Description" />
+
+                    <!-- Fecha de nacimiento de la leyenda -->
+                    <TextView
+                        android:id="@+id/tvBirthdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="Birthdate: "
+                        android:gravity="center_horizontal"
+                        android:textSize="16sp"
+                        android:paddingTop="8dp"
+                        tools:text="1941-08-07" />
+
+                    <!-- Ocupación de la leyenda -->
+                    <TextView
+                        android:id="@+id/tvOccupation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal"
+                        android:text="Occupation: "
+                        android:textSize="16sp"
+                        android:paddingTop="8dp"
+                        tools:text="Bodybuilder, Actor, Politician" />
+
+                    <!-- Tabla para mostrar los PRs centrada -->
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="1"
+                        android:gravity="center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp">
+
+                        <TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Bench Press PR:"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:padding="8dp"
+                                tools:text="238 kg" />
+
+                            <TextView
+                                android:id="@+id/tvPRBenchPress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:padding="8dp"
+                                tools:text="238 kg" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Squat PR:"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:padding="8dp"
+                                tools:text="297 kg" />
+
+                            <TextView
+                                android:id="@+id/tvPRSquat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:padding="8dp"
+                                tools:text="297 kg" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Deadlift PR:"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:padding="8dp"
+                                tools:text="340 kg" />
+
+                            <TextView
+                                android:id="@+id/tvPRDeadlift"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:padding="8dp"
+                                tools:text="340 kg" />
+                        </TableRow>
+                    </TableLayout>
+
                 </LinearLayout>
             </ScrollView>
 
@@ -76,11 +185,8 @@
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:indeterminateDrawable="@drawable/loading_anim"
-                android:indeterminateDuration="1500"
-                />
+                android:indeterminateDuration="1500" />
 
         </RelativeLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>
