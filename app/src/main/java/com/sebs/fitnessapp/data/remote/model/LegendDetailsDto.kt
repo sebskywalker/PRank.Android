@@ -44,7 +44,10 @@ data class LegendDetailsDto(
     var currentAge: String? = null,
 
     @SerializedName("description")
-    var description: String? = null
+    var description: String? = null,
+
+    @SerializedName("video_url")
+    var videoUrl: String? = null
 
 
 

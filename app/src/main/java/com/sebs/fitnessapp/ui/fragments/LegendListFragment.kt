@@ -1,11 +1,12 @@
 package com.sebs.fitnessapp.ui.fragments
 
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sebs.fitnessapp.R
 import com.sebs.fitnessapp.application.LegendRFApp
@@ -23,11 +24,11 @@ class LegendListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var repository: LegendRepository
+    private var mediaPlayer: MediaPlayer? = null // Instancia para manejar el audio
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +36,6 @@ class LegendListFragment : Fragment() {
     ): View? {
         _binding = FragmentLegendListBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,49 +45,67 @@ class LegendListFragment : Fragment() {
 
         val call: Call<MutableList<LegendDto>> = repository.getLegendsApiary("legend/legends_list")
 
-        call.enqueue(object: Callback<MutableList<LegendDto>>{
+        call.enqueue(object : Callback<MutableList<LegendDto>> {
             override fun onResponse(
                 p0: Call<MutableList<LegendDto>>,
                 response: Response<MutableList<LegendDto>>
             ) {
-           binding.pbLoading.visibility = View.GONE
-                response.body()?.let { legend ->
+                binding.pbLoading.visibility = View.GONE
+                response.body()?.let { legendList ->
 
-
-                    //pasamos las leyendas al recicler view
-
+                    // Configurar RecyclerView con leyendas
                     binding.rvGames.apply {
-
                         layoutManager = LinearLayoutManager(requireContext())
-                        adapter = LegendAdapter(legend){ legend ->
-                            //accion para detalles del juego
-
+                        adapter = LegendAdapter(legendList, { legend ->
+                            // Acción para mostrar detalles de una leyenda
                             legend.id?.let { id ->
                                 requireActivity().supportFragmentManager.beginTransaction()
                                     .replace(R.id.fragment_container, LegendDatailFragment.newInstance(id))
                                     .addToBackStack(null)
                                     .commit()
                             }
-
-
-                        }
+                        }, requireContext())
                     }
                 }
             }
 
             override fun onFailure(p0: Call<MutableList<LegendDto>>, p1: Throwable) {
-            Toast.makeText(
-                requireContext(),
-                "error: no hay conexion",
-                Toast.LENGTH_SHORT
-            ).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Error: no hay conexión",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onResume() {
+        super.onResume()
+        // Reproducir "LightWeight" al regresar a la lista
+        playAudio(R.raw.lightweigh)
+    }
+
+    private fun playAudio(audioResId: Int) {
+        // Detener cualquier audio en curso antes de reproducir uno nuevo
+        mediaPlayer?.release()
+
+        // Crear y reproducir un nuevo audio
+        mediaPlayer = MediaPlayer.create(requireContext(), audioResId).apply {
+            start()
+            setOnCompletionListener {
+                release() // Liberar recursos después de la reproducción
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
+        releaseMediaPlayer() // Liberar el MediaPlayer
+    }
+
+    private fun releaseMediaPlayer() {
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }
