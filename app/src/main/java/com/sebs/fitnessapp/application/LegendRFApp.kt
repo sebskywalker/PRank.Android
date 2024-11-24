@@ -6,7 +6,7 @@ import com.sebs.fitnessapp.data.remote.RetrofitHelper
 
 class LegendRFApp: Application() {
 
-
+//1
     private val retrofit by lazy {
         RetrofitHelper().getRetrofit()
     }
