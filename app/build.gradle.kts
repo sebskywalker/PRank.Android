@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -63,6 +64,7 @@ dependencies {
 
     //Imágenes con bordes redondeados
     implementation(libs.roundedimageview)
+    implementation(libs.firebase.auth)
 
 
 
