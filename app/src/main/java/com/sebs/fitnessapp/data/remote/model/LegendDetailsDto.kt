@@ -47,14 +47,18 @@ data class LegendDetailsDto(
     var description: String? = null,
 
     @SerializedName("video_url")
-    var videoUrl: String? = null
+    var videoUrl: String? = null,
 
-
-
-
-
-
+    @SerializedName("coordinates")
+    var coordinates: CoordinatesDto? = null // Nuevo atributo para las coordenadas
 )
 
+data class CoordinatesDto(
+    @SerializedName("latitude")
+    var latitude: Double,
+
+    @SerializedName("longitude")
+    var longitude: Double
+)
 
 

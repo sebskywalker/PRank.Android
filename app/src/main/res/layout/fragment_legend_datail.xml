@@ -1,200 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".ui.fragments.LegendDatailFragment">
+    tools:context=".ui.fragments.LegendDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <!-- Indicador de carga -->
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <ScrollView
-                android:id="@+id/scrollView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <LinearLayout
+                <!-- Nombre de la leyenda -->
+                <TextView
+                    android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    tools:text="Legend Name" />
 
-                    <!-- Nombre de la leyenda -->
-                    <TextView
-                        android:id="@+id/tvName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ubuntu_bold"
-                        android:gravity="center_horizontal"
-                        android:paddingBottom="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="25sp"
-                        tools:text="Legend Name" />
+                <!-- Imagen de la leyenda -->
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/ivImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:riv_corner_radius="10dp"
+                    tools:src="@mipmap/ic_launcher" />
 
-                    <!-- Imagen de la leyenda -->
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/ivImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        app:riv_corner_radius="10dp"
-                        tools:src="@mipmap/ic_launcher" />
+                <!-- Alias de la leyenda -->
+                <TextView
+                    android:id="@+id/tvAlias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:gravity="center_horizontal"
+                    android:textStyle="italic"
+                    android:textSize="18sp"
+                    android:paddingTop="8dp"
+                    tools:text="Alias" />
 
-                    <!-- Alias de la leyenda como subtítulo -->
-                    <TextView
-                        android:id="@+id/tvAlias"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:gravity="center_horizontal"
-                        android:textStyle="italic"
-                        android:textSize="18sp"
-                        android:paddingTop="8dp"
-                        tools:text="The Austrian Oak" />
+                <!-- Descripción de la leyenda -->
+                <TextView
+                    android:id="@+id/tvLongDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu"
+                    android:padding="15dp"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="Description goes here" />
 
-                    <!-- Descripción de la leyenda -->
-                    <TextView
-                        android:id="@+id/tvLongDesc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ubuntu"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        tools:text="Description" />
+                <!-- Fecha de nacimiento -->
+                <TextView
+                    android:id="@+id/tvBirthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp"
+                    android:paddingTop="8dp"
+                    tools:text="Birthdate: YYYY-MM-DD" />
 
-                    <!-- Fecha de nacimiento de la leyenda -->
-                    <TextView
-                        android:id="@+id/tvBirthdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Birthdate: "
-                        android:gravity="center_horizontal"
-                        android:textSize="16sp"
-                        android:paddingTop="8dp"
-                        tools:text="1941-08-07" />
+                <!-- Ocupación -->
+                <TextView
+                    android:id="@+id/tvOccupation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:gravity="center_horizontal"
+                    android:textSize="16sp"
+                    android:paddingTop="8dp"
+                    tools:text="Occupation" />
 
-                    <!-- Ocupación de la leyenda -->
-                    <TextView
-                        android:id="@+id/tvOccupation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:gravity="center_horizontal"
-                        android:text="Occupation: "
-                        android:textSize="16sp"
-                        android:paddingTop="8dp"
-                        tools:text="Bodybuilder, Actor, Politician" />
+                <!-- Tabla para mostrar los PRs -->
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1"
+                    android:gravity="center"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
 
-                    <!-- Tabla para mostrar los PRs centrada -->
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:stretchColumns="1"
-                        android:gravity="center"
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp">
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bench Press PR:"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:padding="8dp"
+                            tools:text="Bench Press PR" />
 
-                        <TableRow>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Bench Press PR:"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:padding="8dp"
-                                tools:text="238 kg" />
+                        <TextView
+                            android:id="@+id/tvPRBenchPress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:padding="8dp"
+                            tools:text="PR Value" />
+                    </TableRow>
 
-                            <TextView
-                                android:id="@+id/tvPRBenchPress"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:padding="8dp"
-                                tools:text="238 kg" />
-                        </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Squat PR:"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:padding="8dp"
+                            tools:text="Squat PR" />
 
-                        <TableRow>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Squat PR:"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:padding="8dp"
-                                tools:text="297 kg" />
+                        <TextView
+                            android:id="@+id/tvPRSquat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:padding="8dp"
+                            tools:text="PR Value" />
+                    </TableRow>
 
-                            <TextView
-                                android:id="@+id/tvPRSquat"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:padding="8dp"
-                                tools:text="297 kg" />
-                        </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Deadlift PR:"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:padding="8dp"
+                            tools:text="Deadlift PR" />
 
-                        <TableRow>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Deadlift PR:"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:padding="8dp"
-                                tools:text="340 kg" />
+                        <TextView
+                            android:id="@+id/tvPRDeadlift"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:padding="8dp"
+                            tools:text="PR Value" />
+                    </TableRow>
+                </TableLayout>
 
-                            <TextView
-                                android:id="@+id/tvPRDeadlift"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:padding="8dp"
-                                tools:text="340 kg" />
-                        </TableRow>
-                    </TableLayout>
+                <!-- WebView para el video -->
+                <WebView
+                    android:id="@+id/wvVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/black" />
 
-                    <!-- Aquí se incluye el WebView para el video -->
-                    <WebView
-                        android:id="@+id/wvVideo"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/black" />
+                <!-- Contenedor del mapa -->
+                <FrameLayout
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/black" />
 
-                </LinearLayout>
-            </ScrollView>
+            </LinearLayout>
+        </ScrollView>
 
-            <ProgressBar
-                android:id="@+id/pbLoading"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
-                android:indeterminateDrawable="@drawable/loading_anim"
-                android:indeterminateDuration="1500" />
-
-        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

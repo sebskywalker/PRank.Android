@@ -37,18 +37,17 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="i"
-                    android:textColor="#707070"
-                    android:textSize="75sp" />
+                    android:text="Fitness"
+                    android:textColor="#F44336"
+                    android:textSize="75sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="Diplo"
-                    android:textColor="#8102b7"
+                    android:text="App"
+                    android:textColor="#4CAF50"
                     android:textSize="75sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -57,9 +56,9 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cursos móviles"
+                android:text="Bienvenido a tu entrenador personal"
                 android:textAlignment="center"
-                android:textColor="#001764"
+                android:textColor="#607D8B"
                 android:textSize="20sp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -118,7 +117,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
+                android:backgroundTint="#3F51B5"
                 android:text="Ingresar"
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
@@ -133,7 +132,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:backgroundTint="#440877"
+                android:backgroundTint="#FF5722"
                 android:text="Registrarse"
                 android:textAllCaps="false"
                 android:textColor="#ffffff"
@@ -170,9 +169,9 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
-                android:text="© Diplo Móviles"
+                android:text="© Fitness App"
                 android:textAlignment="center"
-                android:textColor="#04336a"
+                android:textColor="#607D8B"
                 android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>

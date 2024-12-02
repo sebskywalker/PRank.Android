@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.GoogleMap
 import com.sebs.fitnessapp.R
 import com.sebs.fitnessapp.application.LegendRFApp
 import com.sebs.fitnessapp.data.LegendRepository
@@ -22,6 +23,17 @@ import retrofit2.Response
 private const val LEGEND_ID = "legend_id"
 
 class LegendDatailFragment : Fragment() {
+
+    //PROPIEDAD GLOBAL MAPA
+
+    private lateinit var map: GoogleMap
+
+    //Para el permiso de la localizacion
+
+    private var finaLocationPermissionGranted = false
+
+
+
 
     private var legendId: String? = null
     private var _binding: FragmentLegendDatailBinding? = null
@@ -95,8 +107,14 @@ class LegendDatailFragment : Fragment() {
                     // Manejo de errores
                 }
             })
+
+
+
+            }
         }
-    }
+
+ private fun actionPermissionGranted() {
+ }
 
     private fun extractVideoId(youtubeUrl: String): String {
         val regex = "v=([^&]+)".toRegex()
