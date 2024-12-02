@@ -60,7 +60,7 @@ class LegendListFragment : Fragment() {
                             // Acción para mostrar detalles de una leyenda
                             legend.id?.let { id ->
                                 requireActivity().supportFragmentManager.beginTransaction()
-                                    .replace(R.id.fragment_container, LegendDatailFragment.newInstance(id))
+                                    .replace(R.id.fragment_container, LegendDetailFragment.newInstance(id))
                                     .addToBackStack(null)
                                     .commit()
                             }

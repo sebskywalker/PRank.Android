@@ -1,5 +1,4 @@
 package com.sebs.fitnessapp.ui.adapters
-
 import android.content.Context
 import android.media.MediaPlayer
 import android.view.LayoutInflater

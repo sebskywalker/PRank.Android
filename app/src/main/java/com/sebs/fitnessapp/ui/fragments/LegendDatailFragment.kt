@@ -2,14 +2,17 @@ package com.sebs.fitnessapp.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewClient
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.sebs.fitnessapp.R
 import com.sebs.fitnessapp.application.LegendRFApp
 import com.sebs.fitnessapp.data.LegendRepository
@@ -22,24 +25,13 @@ import retrofit2.Response
 
 private const val LEGEND_ID = "legend_id"
 
-class LegendDatailFragment : Fragment() {
-
-    //PROPIEDAD GLOBAL MAPA
-
-    private lateinit var map: GoogleMap
-
-    //Para el permiso de la localizacion
-
-    private var finaLocationPermissionGranted = false
-
-
-
+class LegendDetailFragment : Fragment(), OnMapReadyCallback {
 
     private var legendId: String? = null
     private var _binding: FragmentLegendDatailBinding? = null
     private val binding get() = _binding!!
     private lateinit var repository: LegendRepository
-    private lateinit var wvVideo: WebView
+    private lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +44,7 @@ class LegendDatailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLegendDatailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -60,61 +52,67 @@ class LegendDatailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Instancia del repo
         repository = (requireActivity().application as LegendRFApp).repository
 
-        // Inicializar WebView
-        wvVideo = binding.wvVideo
-        wvVideo.settings.javaScriptEnabled = true
-        wvVideo.settings.loadWithOverviewMode = true
-        wvVideo.settings.useWideViewPort = true
-        wvVideo.webViewClient = WebViewClient()
+        // Configurar el mapa
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
+        // Cargar detalles de la leyenda
+        loadLegendDetails()
+    }
+
+    private fun loadLegendDetails() {
         legendId?.let { id ->
             val call: Call<LegendDetailsDto> = repository.getLegendDatailApiary(id)
             call.enqueue(object : Callback<LegendDetailsDto> {
                 override fun onResponse(p0: Call<LegendDetailsDto>, response: Response<LegendDetailsDto>) {
+                    binding.pbLoading.visibility = View.GONE
+                    val legend = response.body()
+                    Log.d(Constants.LOGTAG, "Respuesta de la API: $legend") // Log para depuración
 
-                    // Éxito
                     binding.apply {
-                        pbLoading.visibility = View.GONE
-                        val legend = response.body()
-
-                        tvName.text = legend?.name
-                        tvAlias.text = legend?.alias ?: "Alias not available"
-                        tvBirthdate.text = legend?.birthdate ?: "Birthdate not available"
-                        tvOccupation.text = legend?.occupation ?: "Occupation not available"
-                        tvPRBenchPress.text = legend?.prBenchPress ?: "PR not available"
-                        tvPRSquat.text = legend?.prSquat ?: "PR not available"
-                        tvPRDeadlift.text = legend?.prDeadlift ?: "PR not available"
-                        tvLongDesc.text = legend?.description ?: "Description not available"
+                        tvName.text = legend?.name ?: "No disponible"
+                        tvAlias.text = legend?.alias ?: "Alias no disponible"
+                        tvBirthdate.text = legend?.birthdate ?: "Fecha no disponible"
+                        tvOccupation.text = legend?.occupation ?: "Ocupación no disponible"
+                        tvPRBenchPress.text = legend?.prBenchPress ?: "PR no disponible"
+                        tvPRSquat.text = legend?.prSquat ?: "PR no disponible"
+                        tvPRDeadlift.text = legend?.prDeadlift ?: "PR no disponible"
+                        tvLongDesc.text = legend?.description ?: "Descripción no disponible"
 
                         Glide.with(requireActivity())
                             .load(legend?.image)
                             .into(ivImage)
 
-                        // Configurar y cargar el video
                         legend?.videoUrl?.let { url ->
                             val videoEmbedUrl = "https://www.youtube.com/embed/${extractVideoId(url)}"
-                            wvVideo.loadUrl(videoEmbedUrl)
+                            binding.wvVideo.apply {
+                                settings.javaScriptEnabled = true
+                                settings.loadWithOverviewMode = true
+                                settings.useWideViewPort = true
+                                webViewClient = WebViewClient()
+                                loadUrl(videoEmbedUrl)
+                            }
                         } ?: run {
-                            wvVideo.loadUrl("about:blank")
+                            binding.wvVideo.loadUrl("about:blank")
+                        }
+
+                        legend?.coordinates?.let {
+                            val location = LatLng(it.latitude, it.longitude)
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+                        } ?: run {
+                            Log.e(Constants.LOGTAG, "Coordenadas no disponibles para esta leyenda")
                         }
                     }
                 }
 
                 override fun onFailure(p0: Call<LegendDetailsDto>, p1: Throwable) {
-                    // Manejo de errores
+                    Log.e(Constants.LOGTAG, "Error al cargar detalles: ${p1.localizedMessage}")
                 }
             })
-
-
-
-            }
         }
-
- private fun actionPermissionGranted() {
- }
+    }
 
     private fun extractVideoId(youtubeUrl: String): String {
         val regex = "v=([^&]+)".toRegex()
@@ -122,15 +120,22 @@ class LegendDatailFragment : Fragment() {
         return matchResult?.groups?.get(1)?.value ?: ""
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+        // Configuración inicial del mapa
+        val defaultLocation = LatLng(0.0, 0.0)
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 1f))
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
     companion object {
         @JvmStatic
         fun newInstance(legendId: String) =
-            LegendDatailFragment().apply {
+            LegendDetailFragment().apply {
                 arguments = Bundle().apply {
                     putString(LEGEND_ID, legendId)
                 }

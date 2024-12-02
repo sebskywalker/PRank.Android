@@ -20,7 +20,13 @@ data class LegendDto(
     var description: String? = null,
 
     @SerializedName("occupation")
-    var occupation: String? = null
+    var occupation: String? = null,
+
+    @SerializedName("latitude")
+    var latitude: Double? = null,
+
+    @SerializedName("longitude")
+    var longitude: Double? = null
 
 
 
