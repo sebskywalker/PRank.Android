@@ -12,7 +12,9 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.sebs.fitnessapp.R
 import com.sebs.fitnessapp.application.LegendRFApp
 import com.sebs.fitnessapp.data.LegendRepository
@@ -101,6 +103,7 @@ class LegendDetailFragment : Fragment(), OnMapReadyCallback {
                         legend?.coordinates?.let {
                             val location = LatLng(it.latitude, it.longitude)
                             map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12f))
+                            addCustomMarker(location)
                         } ?: run {
                             Log.e(Constants.LOGTAG, "Coordenadas no disponibles para esta leyenda")
                         }
@@ -118,6 +121,14 @@ class LegendDetailFragment : Fragment(), OnMapReadyCallback {
         val regex = "v=([^&]+)".toRegex()
         val matchResult = regex.find(youtubeUrl)
         return matchResult?.groups?.get(1)?.value ?: ""
+    }
+
+    private fun addCustomMarker(location: LatLng) {
+        val markerOptions = MarkerOptions()
+            .position(location)
+            .title("Ubicación de la leyenda")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.person)) // Reemplaza con tu imagen personalizada
+        map.addMarker(markerOptions)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

@@ -13,6 +13,7 @@ import com.sebs.fitnessapp.application.LegendRFApp
 import com.sebs.fitnessapp.data.LegendRepository
 import com.sebs.fitnessapp.data.remote.model.LegendDto
 import com.sebs.fitnessapp.databinding.FragmentLegendListBinding
+import com.sebs.fitnessapp.ui.adapters.CarouselAdapter
 import com.sebs.fitnessapp.ui.adapters.LegendAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,10 +27,6 @@ class LegendListFragment : Fragment() {
     private lateinit var repository: LegendRepository
     private var mediaPlayer: MediaPlayer? = null // Instancia para manejar el audio
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +38,17 @@ class LegendListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Configuración del carrusel
+        val imageResources = listOf(
+            R.drawable.feature1,
+            R.drawable.feature2,
+            R.drawable.feature4
+        )
+
+        val carouselAdapter = CarouselAdapter(imageResources)
+        binding.vpCarousel.adapter = carouselAdapter
+
+        // Configuración de la lista de leyendas
         repository = (requireActivity().application as LegendRFApp).repository
 
         val call: Call<MutableList<LegendDto>> = repository.getLegendsApiary("legend/legends_list")
@@ -52,12 +60,9 @@ class LegendListFragment : Fragment() {
             ) {
                 binding.pbLoading.visibility = View.GONE
                 response.body()?.let { legendList ->
-
-                    // Configurar RecyclerView con leyendas
                     binding.rvGames.apply {
                         layoutManager = LinearLayoutManager(requireContext())
                         adapter = LegendAdapter(legendList, { legend ->
-                            // Acción para mostrar detalles de una leyenda
                             legend.id?.let { id ->
                                 requireActivity().supportFragmentManager.beginTransaction()
                                     .replace(R.id.fragment_container, LegendDetailFragment.newInstance(id))
@@ -70,42 +75,13 @@ class LegendListFragment : Fragment() {
             }
 
             override fun onFailure(p0: Call<MutableList<LegendDto>>, p1: Throwable) {
-                Toast.makeText(
-                    requireContext(),
-                    "Error: no hay conexión",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "Error: no hay conexión", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // Reproducir "LightWeight" al regresar a la lista
-        playAudio(R.raw.lightweigh)
-    }
-
-    private fun playAudio(audioResId: Int) {
-        // Detener cualquier audio en curso antes de reproducir uno nuevo
-        mediaPlayer?.release()
-
-        // Crear y reproducir un nuevo audio
-        mediaPlayer = MediaPlayer.create(requireContext(), audioResId).apply {
-            start()
-            setOnCompletionListener {
-                release() // Liberar recursos después de la reproducción
-            }
-        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        releaseMediaPlayer() // Liberar el MediaPlayer
-    }
-
-    private fun releaseMediaPlayer() {
-        mediaPlayer?.release()
-        mediaPlayer = null
     }
 }

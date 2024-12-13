@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    tools:context=".ui.fragments.LegendListFragment">
+    android:orientation="vertical"
+    android:background="#000000">
 
+    <!-- Carrusel de imágenes con ViewPager2 -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpCarousel"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_gravity="center"
+        android:importantForAccessibility="yes" />
+
+    <!-- Barra de progreso para la carga -->
     <ProgressBar
         android:id="@+id/pbLoading"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="16dp"
         android:indeterminateDrawable="@drawable/loading_anim"
-        android:indeterminateDuration="1500"
-        />
+        android:indeterminate="true" />
 
+    <!-- RecyclerView en cuadrícula -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGames"
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-</FrameLayout>
+</LinearLayout>

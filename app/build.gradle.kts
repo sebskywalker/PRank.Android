@@ -82,6 +82,8 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.play.services.maps.v1810)
 
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
 
 
 
