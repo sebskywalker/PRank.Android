@@ -13,11 +13,11 @@ class LegendRepository(
 
     private val legendAPI: LegendAPI = retrofit.create(LegendAPI::class.java)
 
-   // fun getLegend(url: String?): Call<MutableList<LegendDto>> =
-     //  legendAPI.getLegend(url)
+    // fun getLegend(url: String?): Call<MutableList<LegendDto>> =
+    //  legendAPI.getLegend(url)
 
-   // fun getLegendDetail(id: String?): Call<LegendDetailsDto> =
-      //  legendAPI.getLegends(id)
+    // fun getLegendDetail(id: String?): Call<LegendDetailsDto> =
+    //  legendAPI.getLegends(id)
 
     //Para Apiary
 
@@ -27,4 +27,4 @@ class LegendRepository(
 
 
 
-    }
+}

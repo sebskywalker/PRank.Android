@@ -58,7 +58,11 @@ data class CoordinatesDto(
     var latitude: Double,
 
     @SerializedName("longitude")
-    var longitude: Double
+    var longitude: Double,
+
+    // Nuevo atributo para la categoría
+    @SerializedName("category")
+    var category: String? = null
 )
 
 

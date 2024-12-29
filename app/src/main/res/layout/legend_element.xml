@@ -7,7 +7,6 @@
     android:foreground="@drawable/custom_ripple"
     android:padding="4dp">
 
-
     <View
         android:id="@+id/viewBackground"
         android:layout_width="match_parent"
@@ -29,7 +28,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:riv_corner_radius="10dp" />
 
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
@@ -47,9 +45,8 @@
         app:layout_constraintTop_toTopOf="@+id/guideline7"
         tools:text="Title" />
 
-
     <TextView
-        android:id="@+id/tvoccupation"
+        android:id="@+id/tvOccupation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -57,31 +54,12 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/ubuntu"
         android:includeFontPadding="false"
-
         android:textColor="#F5DC53"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@id/guideline6" />
-
-    <TextView
-        android:id="@+id/tvPR"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/ubuntu"
-        android:includeFontPadding="false"
-        android:text="@string/pr_bench_press"
-        android:textColor="#8D9FA7AC"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintBottom_toBottomOf="@id/guideline4"
-        app:layout_constraintTop_toTopOf="@id/guideline5"
-        tools:text="PR" />
 
     <TextView
         android:id="@+id/tvPRBenchPress"
@@ -92,14 +70,13 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/ubuntu"
         android:includeFontPadding="false"
-
         android:textColor="#F5DC53"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@id/guideline4"
         app:layout_constraintBottom_toBottomOf="@id/guideline3"
-        tools:text="pr"/>
+        tools:text="pr" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

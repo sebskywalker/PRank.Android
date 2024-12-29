@@ -17,7 +17,7 @@ class LegendViewHolder(
 
         binding.tvTitle.text = legend.title
         binding.tvPRBenchPress.text = legend.prBenchPress
-        binding.tvoccupation.text = legend.occupation
+        binding.tvOccupation.text = legend.occupation
 
 
 
@@ -25,7 +25,7 @@ class LegendViewHolder(
         //glide
 
         Glide.with(binding.root.context)
-            .load(legend.thumnail)
+            .load(legend.thumbnail)
             .into(binding.ivThumbnail)
 
   }
