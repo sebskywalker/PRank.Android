@@ -25,9 +25,11 @@ class LegendCategoryAdapter(
         val category = categories[position]
 
         holder.binding.categoryTitle.text = category.category
-        val legendAdapter = LegendAdapter(category.legends.toMutableList(), onLegendClick)
+        val legendAdapter = LegendAdapter(category.legends.toMutableList()) { legend ->
+            onLegendClick(legend)
+        }
 
-        // Configurar el LayoutManager para el RecyclerView
+        // Configuración para carrusel horizontal
         holder.binding.legendRecyclerView.apply {
             layoutManager = LinearLayoutManager(holder.itemView.context, RecyclerView.HORIZONTAL, false)
             adapter = legendAdapter

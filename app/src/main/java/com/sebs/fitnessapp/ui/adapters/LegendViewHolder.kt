@@ -16,8 +16,8 @@ class LegendViewHolder(
     fun bind(legend: LegendDto){
 
         binding.tvTitle.text = legend.title
-        binding.tvPRBenchPress.text = legend.prBenchPress
-        binding.tvOccupation.text = legend.occupation
+        //binding.tvPRBenchPress.text = legend.prBenchPress
+        //binding.tvOccupation.text = legend.occupation
 
 
 

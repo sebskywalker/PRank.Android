@@ -47,7 +47,7 @@ class LegendListFragment : Fragment() {
         val carouselAdapter = CarouselAdapter(imageResources)
         binding.vpCarousel.adapter = carouselAdapter
 
-        // Configuración de la lista de categorías
+        // Configuración de las categorías
         repository = (requireActivity().application as LegendRFApp).repository
 
         val call: Call<MutableList<LegendDto>> = repository.getLegendsApiary("legend/legends_list")
@@ -58,17 +58,12 @@ class LegendListFragment : Fragment() {
             ) {
                 binding.pbLoading.visibility = View.GONE
                 response.body()?.let { legendList ->
-                    val validatedLegends = legendList.map { legend ->
-                        legend.apply {
-                            thumbnail = thumbnail ?: "https://via.placeholder.com/150" // Imagen por defecto
-                        }
-                    }
-
-                    val groupedCategories = validatedLegends.groupBy { it.category ?: "Sin categoría" }
+                    val groupedCategories = legendList.groupBy { it.category ?: "Sin categoría" }
                         .map { (category, legends) -> LegendCategory(category, legends) }
 
                     Log.d("LegendListFragment", "Grouped Categories: $groupedCategories")
 
+                    // Configuración del RecyclerView
                     binding.rvGames.apply {
                         layoutManager = LinearLayoutManager(requireContext())
                         adapter = LegendCategoryAdapter(groupedCategories) { legend ->
@@ -84,7 +79,9 @@ class LegendListFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<MutableList<LegendDto>>, t: Throwable) {
+                binding.pbLoading.visibility = View.GONE
                 Toast.makeText(requireContext(), "Error al cargar leyendas", Toast.LENGTH_SHORT).show()
+                Log.e("LegendListFragment", "Error: ${t.message}")
             }
         })
     }
