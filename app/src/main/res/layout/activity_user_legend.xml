@@ -1,0 +1,135 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.UserLegendActivity">
+
+    <!-- Nombre -->
+    <TextView
+        android:id="@+id/tvLegendName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:paddingBottom="8dp"
+        android:text="@string/legend_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Alias -->
+    <TextView
+        android:id="@+id/tvLegendAlias"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingBottom="8dp"
+        android:text="@string/legend_alias"
+        app:layout_constraintTop_toBottomOf="@id/tvLegendName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Descripción -->
+    <TextView
+        android:id="@+id/tvLegendDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingBottom="8dp"
+        android:text="@string/legend_description"
+        app:layout_constraintTop_toBottomOf="@id/tvLegendAlias"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Fecha de nacimiento -->
+    <TextView
+        android:id="@+id/tvLegendBirthdate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingBottom="8dp"
+        android:text="@string/legend_birthdate"
+        app:layout_constraintTop_toBottomOf="@id/tvLegendDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Ocupación -->
+    <TextView
+        android:id="@+id/tvLegendOccupation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingBottom="8dp"
+        android:text="@string/legend_occupation"
+        app:layout_constraintTop_toBottomOf="@id/tvLegendBirthdate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bench Press PR -->
+    <TextView
+        android:id="@+id/tvLegendBenchPressPR"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingBottom="8dp"
+        android:text="@string/legend_bench_press_pr"
+        app:layout_constraintTop_toBottomOf="@id/tvLegendOccupation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Squat PR -->
+    <TextView
+        android:id="@+id/tvLegendSquatPR"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingBottom="8dp"
+        android:text="@string/legend_squat_pr"
+        app:layout_constraintTop_toBottomOf="@id/tvLegendBenchPressPR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Deadlift PR -->
+    <TextView
+        android:id="@+id/tvLegendDeadliftPR"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingBottom="8dp"
+        android:text="@string/legend_deadlift_pr"
+        app:layout_constraintTop_toBottomOf="@id/tvLegendSquatPR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botones de navegación -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:layout_margin="8dp"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cerrar sesión"
+            android:layout_margin="8dp"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

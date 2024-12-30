@@ -1,0 +1,129 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nombre -->
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:inputType="textPersonName" />
+
+        <!-- Apodo -->
+        <EditText
+            android:id="@+id/etApodo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Apodo"
+            android:layout_marginTop="8dp"
+            android:inputType="text" />
+
+        <!-- Descripción -->
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Descripción"
+            android:layout_marginTop="8dp"
+            android:inputType="textMultiLine"
+            android:minLines="3" />
+
+        <!-- Fecha de Nacimiento -->
+        <EditText
+            android:id="@+id/etFechaNacimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fecha de nacimiento"
+            android:layout_marginTop="8dp"
+            android:inputType="date" />
+
+        <!-- Ocupación -->
+        <EditText
+            android:id="@+id/etOcupacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ocupación"
+            android:layout_marginTop="8dp"
+            android:inputType="text" />
+
+        <!-- PR Bench Press -->
+        <EditText
+            android:id="@+id/etPRBenchPress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Bench Press PR (kg)"
+            android:layout_marginTop="8dp"
+            android:inputType="number" />
+
+        <!-- PR Squat -->
+        <EditText
+            android:id="@+id/etPRSquat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Squat PR (kg)"
+            android:layout_marginTop="8dp"
+            android:inputType="number" />
+
+        <!-- PR Deadlift -->
+        <EditText
+            android:id="@+id/etPRDeadlift"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Deadlift PR (kg)"
+            android:layout_marginTop="8dp"
+            android:inputType="number" />
+
+        <!-- Seleccionar Foto -->
+        <Button
+            android:id="@+id/btnSeleccionarFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Foto"
+            android:layout_marginTop="16dp" />
+
+        <!-- Guardar -->
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:textColor="@android:color/white" />
+
+        <!-- Botones de navegación -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:layout_margin="8dp"
+                android:backgroundTint="@android:color/holo_blue_light"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnCerrarSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cerrar sesión"
+                android:layout_margin="8dp"
+                android:backgroundTint="@android:color/holo_blue_light"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
