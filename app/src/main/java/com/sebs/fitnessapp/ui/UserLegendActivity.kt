@@ -45,5 +45,12 @@ class UserLegendActivity : AppCompatActivity() {
             startActivity(intent)
             finish() // Finalizar la actividad actual
         }
+
+        // Configurar el botón "Editar"
+        binding.btnEditar.setOnClickListener {
+            // Abrir la actividad de edición (ProfileActivity)
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

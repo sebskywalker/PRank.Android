@@ -20,6 +20,19 @@ class ProfileActivity : AppCompatActivity() {
         // Inicializar SharedPreferences
         sharedPreferences = getSharedPreferences("LegendPrefs", MODE_PRIVATE)
 
+        // Prellenar el formulario si ya existen datos guardados
+        if (sharedPreferences.getBoolean("isLegendCreated", false)) {
+            binding.etNombre.setText(sharedPreferences.getString("legendName", ""))
+            binding.etApodo.setText(sharedPreferences.getString("legendAlias", ""))
+            binding.etDescripcion.setText(sharedPreferences.getString("legendDescription", ""))
+            binding.etFechaNacimiento.setText(sharedPreferences.getString("legendBirthdate", ""))
+            binding.etOcupacion.setText(sharedPreferences.getString("legendOccupation", ""))
+            binding.etPRBenchPress.setText(sharedPreferences.getString("legendBenchPress", ""))
+            binding.etPRSquat.setText(sharedPreferences.getString("legendSquat", ""))
+            binding.etPRDeadlift.setText(sharedPreferences.getString("legendDeadlift", ""))
+        }
+
+        // Configurar botón "Guardar"
         binding.btnGuardar.setOnClickListener {
             val nombre = binding.etNombre.text.toString()
             val apodo = binding.etApodo.text.toString()
@@ -48,9 +61,14 @@ class ProfileActivity : AppCompatActivity() {
                     .putString("legendDeadlift", prDeadlift)
                     .apply()
 
-                // Crear un Intent para redirigir a UserLegendActivity
+                // Mostrar mensaje de éxito
+                Toast.makeText(this, "Datos guardados exitosamente", Toast.LENGTH_SHORT).show()
+
+                // Redirigir a UserLegendActivity
                 val intent = Intent(this, UserLegendActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
             }
