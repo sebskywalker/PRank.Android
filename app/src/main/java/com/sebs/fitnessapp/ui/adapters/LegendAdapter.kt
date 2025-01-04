@@ -9,7 +9,8 @@ import com.sebs.fitnessapp.databinding.LegendElementBinding
 
 class LegendAdapter(
     private val legends: List<LegendDto>,
-    private val onLegendClick: (LegendDto) -> Unit
+    private val onLegendClick: (LegendDto) -> Unit,
+    private val onUserLegendClick: () -> Unit // Nuevo callback para la leyenda del usuario
 ) : RecyclerView.Adapter<LegendAdapter.LegendViewHolder>() {
 
     inner class LegendViewHolder(private val binding: LegendElementBinding) :
@@ -23,7 +24,11 @@ class LegendAdapter(
                 .into(binding.ivThumbnail)
 
             binding.root.setOnClickListener {
-                onLegendClick(legend)
+                if (legend.id == "user_legend") {
+                    onUserLegendClick() // Si es la leyenda del usuario, invoca este callback
+                } else {
+                    onLegendClick(legend)
+                }
             }
         }
     }

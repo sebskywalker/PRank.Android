@@ -28,9 +28,9 @@ data class LegendDto(
     var longitude: Double? = null,
 
     @SerializedName("category")
-    var category: String? = null
+    var category: String? = null,
+
+    var isUserCreated: Boolean = false // Nuevo campo
 )
-
-
 
 

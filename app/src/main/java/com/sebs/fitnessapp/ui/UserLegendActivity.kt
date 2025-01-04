@@ -1,8 +1,10 @@
 package com.sebs.fitnessapp.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.sebs.fitnessapp.databinding.ActivityUserLegendBinding
 
 class UserLegendActivity : AppCompatActivity() {
@@ -27,28 +29,32 @@ class UserLegendActivity : AppCompatActivity() {
         binding.tvLegendSquatPR.text = sharedPreferences.getString("legendSquat", "N/A")
         binding.tvLegendDeadliftPR.text = sharedPreferences.getString("legendDeadlift", "N/A")
 
+        // Cargar la imagen seleccionada
+        val imageUriString = sharedPreferences.getString("legendImageUri", null)
+        if (!imageUriString.isNullOrEmpty()) {
+            val imageUri = Uri.parse(imageUriString)
+            Glide.with(this)
+                .load(imageUri)
+                .into(binding.ivLegendImage) // Cambia "ivLegendImage" al ID de tu ImageView
+        }
+
         // Configurar el botón "Home"
         binding.btnHome.setOnClickListener {
-            // Regresar a la pantalla principal
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish() // Cerrar la actividad actual
+            finish()
         }
 
         // Configurar el botón "Cerrar sesión"
         binding.btnCerrarSesion.setOnClickListener {
-            // Limpiar los datos de SharedPreferences si es necesario
             sharedPreferences.edit().clear().apply()
-
-            // Redirigir al LoginActivity
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finish() // Finalizar la actividad actual
+            finish()
         }
 
         // Configurar el botón "Editar"
         binding.btnEditar.setOnClickListener {
-            // Abrir la actividad de edición (ProfileActivity)
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }

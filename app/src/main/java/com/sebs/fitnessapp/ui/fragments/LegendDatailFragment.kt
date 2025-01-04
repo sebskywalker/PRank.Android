@@ -60,11 +60,40 @@ class LegendDetailFragment : Fragment(), OnMapReadyCallback {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        // Cargar detalles de la leyenda
-        loadLegendDetails()
+        // Determinar si es la leyenda del usuario o una de la API
+        if (legendId == "user_legend") {
+            loadUserLegendDetails()
+        } else {
+            loadLegendDetailsFromAPI()
+        }
     }
 
-    private fun loadLegendDetails() {
+    private fun loadUserLegendDetails() {
+        binding.pbLoading.visibility = View.GONE
+        binding.apply {
+            tvName.text = "Sebastian Verastegui"
+            tvAlias.text = "El Papu"
+            tvBirthdate.text = "02/07/1999"
+            tvOccupation.text = "Fitness Influencer"
+            tvPRBenchPress.text = "110 kg"
+            tvPRSquat.text = "100 kg"
+            tvPRDeadlift.text = "100 kg"
+            tvLongDesc.text = "Conocido como el peligroso, destacado por su pasión en el gimnasio."
+
+            Glide.with(requireActivity())
+                .load("https://example.com/user_thumbnail.jpg") // URL de ejemplo o imagen local
+                .placeholder(R.drawable.person) // Imagen genérica
+                .into(ivImage)
+
+            wvVideo.loadUrl("about:blank") // No hay video para la leyenda creada
+
+            val defaultLocation = LatLng(19.4326, -99.1332) // Coordenadas de ejemplo (Ciudad de México)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 12f))
+            addCustomMarker(defaultLocation)
+        }
+    }
+
+    private fun loadLegendDetailsFromAPI() {
         legendId?.let { id ->
             val call: Call<LegendDetailsDto> = repository.getLegendDatailApiary(id)
             call.enqueue(object : Callback<LegendDetailsDto> {
@@ -89,7 +118,7 @@ class LegendDetailFragment : Fragment(), OnMapReadyCallback {
 
                         legend?.videoUrl?.let { url ->
                             val videoEmbedUrl = "https://www.youtube.com/embed/${extractVideoId(url)}"
-                            binding.wvVideo.apply {
+                            wvVideo.apply {
                                 settings.javaScriptEnabled = true
                                 settings.loadWithOverviewMode = true
                                 settings.useWideViewPort = true
@@ -97,7 +126,7 @@ class LegendDetailFragment : Fragment(), OnMapReadyCallback {
                                 loadUrl(videoEmbedUrl)
                             }
                         } ?: run {
-                            binding.wvVideo.loadUrl("about:blank")
+                            wvVideo.loadUrl("about:blank")
                         }
 
                         legend?.coordinates?.let {

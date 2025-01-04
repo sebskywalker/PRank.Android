@@ -7,6 +7,18 @@
     tools:context=".ui.UserLegendActivity"
     android:background="#000000">
 
+    <!-- Imagen de la leyenda -->
+    <ImageView
+        android:id="@+id/ivLegendImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- Nombre -->
     <TextView
         android:id="@+id/tvLegendName"
@@ -18,7 +30,7 @@
         android:gravity="center"
         android:paddingBottom="8dp"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLegendImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

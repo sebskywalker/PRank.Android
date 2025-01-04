@@ -1,15 +1,30 @@
 <resources>
     <string name="app_name">FitnessApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Fragment Placeholder -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="pr_bench_press">PR BENCH PRESS</string>
 
+    <!-- Títulos y Etiquetas -->
     <string name="legend_name">Nombre</string>
     <string name="legend_alias">Alias</string>
     <string name="legend_description">Descripción</string>
     <string name="legend_birthdate">Fecha de nacimiento</string>
     <string name="legend_occupation">Ocupación</string>
+
+    <!-- PR Labels -->
     <string name="legend_bench_press_pr">Bench Press PR (kg)</string>
     <string name="legend_squat_pr">Squat PR (kg)</string>
     <string name="legend_deadlift_pr">Deadlift PR (kg)</string>
+
+    <!-- Botones -->
+    <string name="btn_home">Home</string>
+    <string name="btn_cerrar_sesion">Cerrar sesión</string>
+    <string name="btn_editar">Editar</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_seleccionar_foto">Seleccionar Foto</string>
+
+    <!-- Mensajes -->
+    <string name="msg_foto_seleccionada">Foto seleccionada con éxito</string>
+    <string name="msg_foto_no_seleccionada">No se seleccionó ninguna foto</string>
+    <string name="msg_campos_incompletos">Por favor completa todos los campos</string>
+    <string name="msg_seleccionar_foto">Por favor selecciona una foto</string>
 </resources>

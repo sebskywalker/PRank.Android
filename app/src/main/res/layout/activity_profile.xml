@@ -81,6 +81,16 @@
             android:layout_marginTop="8dp"
             android:inputType="number" />
 
+        <!-- Vista previa de la imagen -->
+        <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray" />
+
         <!-- Seleccionar Foto -->
         <Button
             android:id="@+id/btnSeleccionarFoto"
