@@ -20,7 +20,7 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Cargar datos existentes en el formulario
+        // Cargar datos existentes desde SharedPreferences
         val sharedPreferences = getSharedPreferences("LegendPrefs", MODE_PRIVATE)
         val nombre = sharedPreferences.getString("legendName", "")
         val apodo = sharedPreferences.getString("legendAlias", "")
@@ -55,44 +55,50 @@ class ProfileActivity : AppCompatActivity() {
 
         // Configurar botón "Guardar"
         binding.btnGuardar.setOnClickListener {
-            val nombreNuevo = binding.etNombre.text.toString()
-            val apodoNuevo = binding.etApodo.text.toString()
-            val descripcionNueva = binding.etDescripcion.text.toString()
-            val fechaNacimientoNueva = binding.etFechaNacimiento.text.toString()
-            val ocupacionNueva = binding.etOcupacion.text.toString()
-            val prBenchPressNuevo = binding.etPRBenchPress.text.toString()
-            val prSquatNuevo = binding.etPRSquat.text.toString()
-            val prDeadliftNuevo = binding.etPRDeadlift.text.toString()
+            guardarDatos(sharedPreferences)
+        }
+    }
 
-            // Validar que los campos no estén vacíos
-            if (nombreNuevo.isNotEmpty() && apodoNuevo.isNotEmpty() && descripcionNueva.isNotEmpty() &&
-                fechaNacimientoNueva.isNotEmpty() && ocupacionNueva.isNotEmpty() &&
-                prBenchPressNuevo.isNotEmpty() && prSquatNuevo.isNotEmpty() && prDeadliftNuevo.isNotEmpty()) {
+    private fun guardarDatos(sharedPreferences: android.content.SharedPreferences) {
+        val nombreNuevo = binding.etNombre.text.toString()
+        val apodoNuevo = binding.etApodo.text.toString()
+        val descripcionNueva = binding.etDescripcion.text.toString()
+        val fechaNacimientoNueva = binding.etFechaNacimiento.text.toString()
+        val ocupacionNueva = binding.etOcupacion.text.toString()
+        val prBenchPressNuevo = binding.etPRBenchPress.text.toString()
+        val prSquatNuevo = binding.etPRSquat.text.toString()
+        val prDeadliftNuevo = binding.etPRDeadlift.text.toString()
 
-                if (selectedImageUri == null) {
-                    Toast.makeText(this, "Por favor selecciona una foto", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                // Guardar en SharedPreferences
-                sharedPreferences.edit()
-                    .putString("legendName", nombreNuevo)
-                    .putString("legendAlias", apodoNuevo)
-                    .putString("legendDescription", descripcionNueva)
-                    .putString("legendBirthdate", fechaNacimientoNueva)
-                    .putString("legendOccupation", ocupacionNueva)
-                    .putString("legendBenchPress", prBenchPressNuevo)
-                    .putString("legendSquat", prSquatNuevo)
-                    .putString("legendDeadlift", prDeadliftNuevo)
-                    .putString("legendImageUri", selectedImageUri.toString())
-                    .apply()
-
-                // Continuar con la navegación
-                val intent = Intent(this, UserLegendActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
+        // Validar que los campos no estén vacíos
+        if (nombreNuevo.isNotEmpty() && apodoNuevo.isNotEmpty() && descripcionNueva.isNotEmpty() &&
+            fechaNacimientoNueva.isNotEmpty() && ocupacionNueva.isNotEmpty() &&
+            prBenchPressNuevo.isNotEmpty() && prSquatNuevo.isNotEmpty() && prDeadliftNuevo.isNotEmpty()
+        ) {
+            if (selectedImageUri == null) {
+                Toast.makeText(this, "Por favor selecciona una foto", Toast.LENGTH_SHORT).show()
+                return
             }
+
+            // Guardar en SharedPreferences
+            sharedPreferences.edit()
+                .putString("legendName", nombreNuevo)
+                .putString("legendAlias", apodoNuevo)
+                .putString("legendDescription", descripcionNueva)
+                .putString("legendBirthdate", fechaNacimientoNueva)
+                .putString("legendOccupation", ocupacionNueva)
+                .putString("legendBenchPress", prBenchPressNuevo)
+                .putString("legendSquat", prSquatNuevo)
+                .putString("legendDeadlift", prDeadliftNuevo)
+                .putString("legendImageUri", selectedImageUri.toString())
+                .apply()
+
+            Toast.makeText(this, "Datos guardados con éxito", Toast.LENGTH_SHORT).show()
+
+            // Continuar con la navegación
+            val intent = Intent(this, UserLegendActivity::class.java)
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         // Configurar botón para cerrar sesión
         binding.btnCerrarSesion.setOnClickListener {
             Toast.makeText(this, "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show()
-            finish() // Finalizar actividad actual
+            finish()
         }
 
         // Configurar funcionalidad dinámica para el botón

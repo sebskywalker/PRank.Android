@@ -1,5 +1,7 @@
 package com.sebs.fitnessapp.ui.fragments
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -14,6 +16,7 @@ import com.sebs.fitnessapp.data.LegendRepository
 import com.sebs.fitnessapp.data.remote.model.LegendCategory
 import com.sebs.fitnessapp.data.remote.model.LegendDto
 import com.sebs.fitnessapp.databinding.FragmentLegendListBinding
+import com.sebs.fitnessapp.ui.UserLegendActivity
 import com.sebs.fitnessapp.ui.adapters.CarouselAdapter
 import com.sebs.fitnessapp.ui.adapters.LegendCategoryAdapter
 import retrofit2.Call
@@ -40,6 +43,10 @@ class LegendListFragment : Fragment() {
 
         repository = (requireActivity().application as LegendRFApp).repository
 
+        val sharedPreferences = requireContext().getSharedPreferences("LegendPrefs", Context.MODE_PRIVATE)
+        val userLegendImageUri = sharedPreferences.getString("legendImageUri", null)
+        val userLegendName = sharedPreferences.getString("legendName", "N/A")
+
         val call: Call<MutableList<LegendDto>> = repository.getLegendsApiary()
         call.enqueue(object : Callback<MutableList<LegendDto>> {
             override fun onResponse(call: Call<MutableList<LegendDto>>, response: Response<MutableList<LegendDto>>) {
@@ -48,8 +55,8 @@ class LegendListFragment : Fragment() {
                     // Crear leyenda del usuario y agregarla a la lista
                     val userLegend = LegendDto(
                         id = "user_legend",
-                        title = "Sebastian Verastegui",
-                        thumbnail = "https://example.com/user_thumbnail.jpg",
+                        title = userLegendName,
+                        thumbnail = userLegendImageUri,
                         description = "Es conocido como el peligroso",
                         category = "Top Global"
                     )
@@ -61,11 +68,16 @@ class LegendListFragment : Fragment() {
 
                     // Configurar RecyclerView
                     adapter = LegendCategoryAdapter(groupedCategories) { legend ->
-                        legend.id?.let { id ->
-                            requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container, LegendDetailFragment.newInstance(id))
-                                .addToBackStack(null)
-                                .commit()
+                        if (legend.id == "user_legend") {
+                            val intent = Intent(requireContext(), UserLegendActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            legend.id?.let { id ->
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container, LegendDetailFragment.newInstance(id))
+                                    .addToBackStack(null)
+                                    .commit()
+                            }
                         }
                     }
 
