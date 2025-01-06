@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="gear_red">#B22222</color> <!-- Color estilo Gears of War -->
+
+    <color name="gray">#707070</color>
+    <color name="red">#B71C1C</color>
+    <color name="dark_gray">#424242</color>
+
 </resources>

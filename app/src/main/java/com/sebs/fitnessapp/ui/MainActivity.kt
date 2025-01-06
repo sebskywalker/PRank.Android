@@ -5,27 +5,25 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.sebs.fitnessapp.R
 import com.sebs.fitnessapp.databinding.ActivityMainBinding
 import com.sebs.fitnessapp.ui.fragments.LegendListFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.sebs.fitnessapp.R
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Inicializar ViewBinding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inicializar SharedPreferences
+        // Inicializar SharedPreferences y FirebaseAuth
         sharedPreferences = getSharedPreferences("LegendPrefs", MODE_PRIVATE)
-
-        // Actualizar el texto del botón dinámicamente
-        updateEditButton()
+        firebaseAuth = FirebaseAuth.getInstance()
 
         // Mostrar fragment inicial
         if (savedInstanceState == null) {
@@ -34,35 +32,67 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
+        // Configurar botones
+        setupButtons()
+    }
+
+    private fun setupButtons() {
         // Configurar botón para cerrar sesión
         binding.btnCerrarSesion.setOnClickListener {
-            Toast.makeText(this, "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show()
-            finish()
+            handleLogout()
         }
 
-        // Configurar funcionalidad dinámica para el botón
+        // Configurar botón para editar perfil o ver leyenda
         binding.btnEditarPerfil.setOnClickListener {
             val isLegendCreated = sharedPreferences.getBoolean("isLegendCreated", false)
-            if (isLegendCreated) {
+            val intent = if (isLegendCreated) {
                 // Abrir vista de la leyenda creada
-                val intent = Intent(this, UserLegendActivity::class.java)
-                startActivity(intent)
+                Intent(this, UserLegendActivity::class.java)
             } else {
                 // Abrir formulario para crear leyenda
-                val intent = Intent(this, ProfileActivity::class.java)
-                startActivity(intent)
+                Intent(this, ProfileActivity::class.java)
             }
+            startActivity(intent)
+        }
+
+        // Configurar botón Home (opcional)
+        binding.btnHome.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, LegendListFragment())
+                .commit()
         }
     }
 
-    private fun updateEditButton() {
-        val isLegendCreated = sharedPreferences.getBoolean("isLegendCreated", false)
-        binding.btnEditarPerfil.text = if (isLegendCreated) "Ver Leyenda" else "Editar Perfil"
-    }
+    private fun handleLogout() {
+        // Guardar los datos de la leyenda personalizada
+        val legendData = sharedPreferences.all.filterKeys { it.startsWith("legend") }
 
-    override fun onResume() {
-        super.onResume()
-        // Actualizar el botón cada vez que la actividad vuelva a ser visible
-        updateEditButton()
+        // Limpiar SharedPreferences
+        sharedPreferences.edit().clear().apply()
+
+        // Restaurar los datos de la leyenda personalizada
+        val editor = sharedPreferences.edit()
+        for ((key, value) in legendData) {
+            when (value) {
+                is String -> editor.putString(key, value)
+                is Int -> editor.putInt(key, value)
+                is Boolean -> editor.putBoolean(key, value)
+                is Float -> editor.putFloat(key, value)
+                is Long -> editor.putLong(key, value)
+            }
+        }
+        editor.apply()
+
+        // Cerrar sesión en Firebase
+        firebaseAuth.signOut()
+
+        // Mostrar mensaje de confirmación
+        Toast.makeText(this, "Sesión cerrada exitosamente", Toast.LENGTH_SHORT).show()
+
+        // Redirigir al LoginActivity
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish() // Finalizar la actividad actual
     }
 }

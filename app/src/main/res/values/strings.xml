@@ -3,6 +3,8 @@
     <!-- Fragment Placeholder -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="preview_image">Vista previa de la imagen</string>
+
     <!-- Títulos y Etiquetas -->
     <string name="legend_name">Nombre</string>
     <string name="legend_alias">Alias</string>
@@ -27,4 +29,7 @@
     <string name="msg_foto_no_seleccionada">No se seleccionó ninguna foto</string>
     <string name="msg_campos_incompletos">Por favor completa todos los campos</string>
     <string name="msg_seleccionar_foto">Por favor selecciona una foto</string>
+
+
+
 </resources>
