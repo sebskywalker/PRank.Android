@@ -1,14 +1,14 @@
 package com.sebs.fitnessapp.ui.adapters
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sebs.fitnessapp.data.remote.model.LegendCategory
 import com.sebs.fitnessapp.data.remote.model.LegendDto
 import com.sebs.fitnessapp.databinding.ItemCategoryBinding
-import com.sebs.fitnessapp.ui.UserLegendActivity
+import com.sebs.fitnessapp.ui.fragments.UserLegendFragment
 
 class LegendCategoryAdapter(
     private var categories: List<LegendCategory>,
@@ -29,9 +29,12 @@ class LegendCategoryAdapter(
         val legendAdapter = LegendAdapter(category.legends, { legend ->
             onLegendClick(legend)
         }, {
-            // Lógica para redirigir a UserLegendActivity cuando se hace clic en la leyenda del usuario
-            val intent = Intent(holder.itemView.context, UserLegendActivity::class.java)
-            holder.itemView.context.startActivity(intent)
+            // 🔄 Lógica para redirigir a UserLegendFragment
+            val activity = holder.itemView.context as? FragmentActivity
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(com.sebs.fitnessapp.R.id.fragment_container, UserLegendFragment())
+                ?.addToBackStack(null)
+                ?.commit()
         })
 
         holder.binding.legendRecyclerView.apply {
