@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nombre -->
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"
+            android:minHeight="56dp"/>
+
+        <!-- Apodo -->
+        <EditText
+            android:id="@+id/etApodo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Apodo"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"
+            android:minHeight="56dp"/>
+
+        <!-- Descripción -->
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Descripción"
+            android:inputType="textMultiLine"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"
+            android:minHeight="56dp"/>
+
+        <!-- Fecha de Nacimiento -->
+        <EditText
+            android:id="@+id/etFechaNacimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fecha de nacimiento"
+            android:inputType="date"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"
+            android:minHeight="56dp"/>
+
+        <!-- Ocupación -->
+        <EditText
+            android:id="@+id/etOcupacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ocupación"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"
+            android:minHeight="56dp"/>
+
+        <!-- PR Bench Press -->
+        <EditText
+            android:id="@+id/etPRBenchPress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Bench Press PR (kg)"
+            android:inputType="number"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"
+            android:minHeight="56dp"/>
+
+        <!-- PR Squat -->
+        <EditText
+            android:id="@+id/etPRSquat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Squat PR (kg)"
+            android:inputType="number"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"
+            android:minHeight="56dp"/>
+
+        <!-- PR Deadlift -->
+        <EditText
+            android:id="@+id/etPRDeadlift"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Deadlift PR (kg)"
+            android:inputType="number"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginBottom="8dp"
+            android:minHeight="56dp"/>
+
+        <!-- Vista previa de la imagen -->
+        <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="Vista previa de la imagen"/>
+
+        <!-- Seleccionar Foto -->
+        <Button
+            android:id="@+id/btnSeleccionarFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Foto"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"/>
+
+        <!-- Guardar -->
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:textColor="@android:color/white"
+            android:minHeight="48dp"/>
+    </LinearLayout>
+</ScrollView>

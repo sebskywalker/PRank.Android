@@ -26,24 +26,20 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // Verificar si el usuario ya está autenticado
         if (firebaseAuth.currentUser != null) {
             actionLoginSuccessful()
         }
 
-        // Botón de inicio de sesión
         binding.btnLogin.setOnClickListener {
             if (!validateFields()) return@setOnClickListener
             authenticateUser(email, contrasenia)
         }
 
-        // Botón de registro
         binding.btnRegistrarse.setOnClickListener {
             if (!validateFields()) return@setOnClickListener
             registerUser(email, contrasenia)
         }
 
-        // Texto para recuperar contraseña
         binding.tvRestablecerPassword.setOnClickListener {
             showPasswordResetDialog()
         }
@@ -111,12 +107,8 @@ class LoginActivity : AppCompatActivity() {
                 val mail = resetMail.text.toString()
                 if (mail.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
                     firebaseAuth.sendPasswordResetEmail(mail)
-                        .addOnSuccessListener {
-                            Toast.makeText(this, "Correo enviado", Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(this, "Error al enviar el correo", Toast.LENGTH_SHORT).show()
-                        }
+                        .addOnSuccessListener { Toast.makeText(this, "Correo enviado", Toast.LENGTH_SHORT).show() }
+                        .addOnFailureListener { Toast.makeText(this, "Error al enviar el correo", Toast.LENGTH_SHORT).show() }
                 } else {
                     Toast.makeText(this, "Correo inválido", Toast.LENGTH_SHORT).show()
                 }
@@ -127,6 +119,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun actionLoginSuccessful() {
+        val sharedPreferences = getSharedPreferences("LegendPrefs", MODE_PRIVATE)
+        if (sharedPreferences.getString("legendName", null) == null) {
+            sharedPreferences.edit()
+                .putString("legendName", "Nuevo Usuario")
+                .putString("legendAlias", "Alias")
+                .putString("legendDescription", "Descripción pendiente")
+                .putString("legendBirthdate", "01/01/2000")
+                .putString("legendOccupation", "Ocupación pendiente")
+                .putString("legendBenchPress", "0")
+                .putString("legendSquat", "0")
+                .putString("legendDeadlift", "0")
+                .apply()
+        }
+
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

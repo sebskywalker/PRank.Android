@@ -30,6 +30,6 @@
     <string name="msg_campos_incompletos">Por favor completa todos los campos</string>
     <string name="msg_seleccionar_foto">Por favor selecciona una foto</string>
 
-
+    <string name="legend_image">Imagen de la leyenda</string>
 
 </resources>

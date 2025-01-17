@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Imagen del Usuario -->
+        <ImageView
+            android:id="@+id/ivLegendImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="@string/legend_image" />
+
+        <!-- Nombre -->
+        <TextView
+            android:id="@+id/tvLegendName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <!-- Alias -->
+        <TextView
+            android:id="@+id/tvLegendAlias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alias"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Descripción -->
+        <TextView
+            android:id="@+id/tvLegendDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripción"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Fecha de nacimiento -->
+        <TextView
+            android:id="@+id/tvLegendBirthdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de nacimiento"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Ocupación -->
+        <TextView
+            android:id="@+id/tvLegendOccupation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ocupación"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- PR Bench Press -->
+        <TextView
+            android:id="@+id/tvLegendBenchPressPR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bench Press PR: 0 kg"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- PR Squat -->
+        <TextView
+            android:id="@+id/tvLegendSquatPR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Squat PR: 0 kg"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- PR Deadlift -->
+        <TextView
+            android:id="@+id/tvLegendDeadliftPR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deadlift PR: 0 kg"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Botón Editar -->
+        <Button
+            android:id="@+id/btnEditar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Editar"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Botón Cerrar Sesión -->
+        <Button
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cerrar Sesión"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:minHeight="48dp"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Botón Home -->
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:minHeight="48dp"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+</ScrollView>
