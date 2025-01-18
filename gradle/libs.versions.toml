@@ -19,6 +19,7 @@ retrofit = "2.11.0"
 roundedimageview = "2.3.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.1.0"
+mpandroidchart = "3.1.0" # Agregada versión de MPAndroidChart
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,9 +40,9 @@ play-services-maps-v1810 = { module = "com.google.android.gms:play-services-maps
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 roundedimageview = { module = "com.makeramen:roundedimageview", version.ref = "roundedimageview" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+mpandroidchart = { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "mpandroidchart" } # MPAndroidChart agregado
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
-

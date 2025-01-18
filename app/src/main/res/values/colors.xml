@@ -9,4 +9,8 @@
     <color name="red">#B71C1C</color>
     <color name="dark_gray">#424242</color>
 
+    <color name="blue_dark">#1A237E</color> <!-- Azul oscuro profundo -->
+    <color name="blue_steel">#283593</color> <!-- Azul acero -->
+    <color name="blue_vibrant">#3949AB</color> <!-- Azul vibrante -->
+
 </resources>

@@ -40,14 +40,6 @@
             android:name=".ui.MainActivity"
             android:exported="true" />
 
-        <activity
-            android:name=".ui.UserLegendActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".ui.ProfileActivity"
-            android:exported="true" />
-
     </application>
 
 </manifest>

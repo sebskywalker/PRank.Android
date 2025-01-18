@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Estado cuando la pestaña está seleccionada -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/blue_steel" /> <!-- Color de fondo al seleccionar -->
+            <corners android:radius="16dp" /> <!-- Bordes redondeados -->
+        </shape>
+    </item>
+
+    <!-- Estado cuando la pestaña NO está seleccionada -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/gray" /> <!-- Color por defecto -->
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</selector>

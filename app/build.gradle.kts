@@ -84,11 +84,8 @@ dependencies {
 
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
-
-
-
-
-
+    implementation(libs.mpandroidchart)
+    implementation(libs.material)
 
 
     testImplementation(libs.junit)

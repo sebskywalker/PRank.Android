@@ -32,4 +32,6 @@
 
     <string name="legend_image">Imagen de la leyenda</string>
 
+    <string name="no_data">No hay datos disponibles</string>
+
 </resources>

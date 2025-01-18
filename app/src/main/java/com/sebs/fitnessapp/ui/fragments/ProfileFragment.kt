@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.sebs.fitnessapp.R
 import com.sebs.fitnessapp.databinding.FragmentProfileBinding
 
@@ -22,30 +23,38 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private var selectedImageUri: Uri? = null
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        firebaseAuth = FirebaseAuth.getInstance()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPreferences = requireContext().getSharedPreferences("LegendPrefs", Activity.MODE_PRIVATE)
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser == null) {
+            Toast.makeText(requireContext(), "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+            return
+        }
 
+        val sharedPreferences = requireContext().getSharedPreferences("LegendPrefs", Activity.MODE_PRIVATE)
         cargarDatos(sharedPreferences)
 
         binding.btnSeleccionarFoto.setOnClickListener { openGallery() }
 
         binding.btnGuardar.setOnClickListener {
             guardarDatos(sharedPreferences)
-            // 🔥 Redirigir automáticamente a UserLegendFragment después de guardar
-            parentFragmentManager.beginTransaction()
+            Toast.makeText(requireContext(), "Leyenda guardada correctamente", Toast.LENGTH_SHORT).show()
+
+            // 🔄 Redirige a UserLegendFragment para reflejar los cambios
+            requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, UserLegendFragment())
-                .addToBackStack(null)
                 .commit()
         }
     }
@@ -54,11 +63,9 @@ class ProfileFragment : Fragment() {
         binding.etNombre.setText(sharedPreferences.getString("legendName", ""))
         binding.etApodo.setText(sharedPreferences.getString("legendAlias", ""))
         binding.etDescripcion.setText(sharedPreferences.getString("legendDescription", ""))
-        binding.etFechaNacimiento.setText(sharedPreferences.getString("legendBirthdate", ""))
-        binding.etOcupacion.setText(sharedPreferences.getString("legendOccupation", ""))
-        binding.etPRBenchPress.setText(sharedPreferences.getString("legendBenchPress", ""))
-        binding.etPRSquat.setText(sharedPreferences.getString("legendSquat", ""))
-        binding.etPRDeadlift.setText(sharedPreferences.getString("legendDeadlift", ""))
+        binding.etPRBenchPress.setText(sharedPreferences.getString("legendBenchPress", "0"))
+        binding.etPRSquat.setText(sharedPreferences.getString("legendSquat", "0"))
+        binding.etPRDeadlift.setText(sharedPreferences.getString("legendDeadlift", "0"))
 
         sharedPreferences.getString("legendImageUri", null)?.let {
             selectedImageUri = Uri.parse(it)
@@ -70,48 +77,26 @@ class ProfileFragment : Fragment() {
         val nombreNuevo = binding.etNombre.text.toString().trim()
         val apodoNuevo = binding.etApodo.text.toString().trim()
         val descripcionNueva = binding.etDescripcion.text.toString().trim()
-        val fechaNacimientoNueva = binding.etFechaNacimiento.text.toString().trim()
-        val ocupacionNueva = binding.etOcupacion.text.toString().trim()
-        val prBenchPressNuevo = binding.etPRBenchPress.text.toString().trim()
-        val prSquatNuevo = binding.etPRSquat.text.toString().trim()
-        val prDeadliftNuevo = binding.etPRDeadlift.text.toString().trim()
-
-        if (nombreNuevo.isEmpty() || apodoNuevo.isEmpty() || descripcionNueva.isEmpty()
-            || fechaNacimientoNueva.isEmpty() || ocupacionNueva.isEmpty()
-            || prBenchPressNuevo.isEmpty() || prSquatNuevo.isEmpty() || prDeadliftNuevo.isEmpty()) {
-            Toast.makeText(requireContext(), "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        if (selectedImageUri == null) {
-            Toast.makeText(requireContext(), "Por favor selecciona una foto", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val benchPress = binding.etPRBenchPress.text.toString().trim()
+        val squat = binding.etPRSquat.text.toString().trim()
+        val deadlift = binding.etPRDeadlift.text.toString().trim()
 
         sharedPreferences.edit()
             .putString("legendName", nombreNuevo)
             .putString("legendAlias", apodoNuevo)
             .putString("legendDescription", descripcionNueva)
-            .putString("legendBirthdate", fechaNacimientoNueva)
-            .putString("legendOccupation", ocupacionNueva)
-            .putString("legendBenchPress", prBenchPressNuevo)
-            .putString("legendSquat", prSquatNuevo)
-            .putString("legendDeadlift", prDeadliftNuevo)
+            .putString("legendBenchPress", benchPress)
+            .putString("legendSquat", squat)
+            .putString("legendDeadlift", deadlift)
             .putString("legendImageUri", selectedImageUri.toString())
             .apply()
-
-        Toast.makeText(requireContext(), "Datos guardados correctamente", Toast.LENGTH_SHORT).show()
     }
 
     private fun openGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestPermissions(arrayOf(android.Manifest.permission.READ_MEDIA_IMAGES), 100)
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                100
-            )
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 100)
         }
 
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -124,10 +109,7 @@ class ProfileFragment : Fragment() {
             selectedImageUri = result.data?.data
             selectedImageUri?.let {
                 Glide.with(this).load(it).into(binding.imagePreview)
-                Toast.makeText(requireContext(), "Foto seleccionada con éxito", Toast.LENGTH_SHORT).show()
             }
-        } else {
-            Toast.makeText(requireContext(), "No se seleccionó ninguna foto", Toast.LENGTH_SHORT).show()
         }
     }
 

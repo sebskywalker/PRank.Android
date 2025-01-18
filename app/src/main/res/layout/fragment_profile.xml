@@ -11,6 +11,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Título del formulario -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crear Leyenda"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
         <!-- Nombre -->
         <EditText
             android:id="@+id/etNombre"
@@ -20,6 +31,7 @@
             android:backgroundTint="@android:color/white"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray"
+            android:drawableStart="@android:drawable/ic_menu_edit"
             android:layout_marginBottom="8dp"
             android:minHeight="56dp"/>
 
@@ -32,6 +44,7 @@
             android:backgroundTint="@android:color/white"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray"
+            android:drawableStart="@android:drawable/ic_menu_edit"
             android:layout_marginBottom="8dp"
             android:minHeight="56dp"/>
 
@@ -42,9 +55,11 @@
             android:layout_height="wrap_content"
             android:hint="Descripción"
             android:inputType="textMultiLine"
+            android:maxLines="3"
             android:backgroundTint="@android:color/white"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray"
+            android:drawableStart="@android:drawable/ic_menu_info_details"
             android:layout_marginBottom="8dp"
             android:minHeight="56dp"/>
 
@@ -53,11 +68,12 @@
             android:id="@+id/etFechaNacimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha de nacimiento"
+            android:hint="Fecha de nacimiento (dd/mm/yyyy)"
             android:inputType="date"
             android:backgroundTint="@android:color/white"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray"
+            android:drawableStart="@android:drawable/ic_menu_my_calendar"
             android:layout_marginBottom="8dp"
             android:minHeight="56dp"/>
 
@@ -70,6 +86,7 @@
             android:backgroundTint="@android:color/white"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray"
+            android:drawableStart="@android:drawable/ic_menu_agenda"
             android:layout_marginBottom="8dp"
             android:minHeight="56dp"/>
 
@@ -134,7 +151,7 @@
             android:textColor="@android:color/white"
             android:layout_gravity="center"/>
 
-        <!-- Guardar -->
+        <!-- Botón de Guardar -->
         <Button
             android:id="@+id/btnGuardar"
             android:layout_width="match_parent"
@@ -144,5 +161,6 @@
             android:backgroundTint="@android:color/holo_green_light"
             android:textColor="@android:color/white"
             android:minHeight="48dp"/>
+
     </LinearLayout>
 </ScrollView>

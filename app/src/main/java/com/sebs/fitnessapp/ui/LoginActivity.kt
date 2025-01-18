@@ -119,7 +119,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun actionLoginSuccessful() {
-        val sharedPreferences = getSharedPreferences("LegendPrefs", MODE_PRIVATE)
+        val uid = firebaseAuth.currentUser?.uid ?: return
+        val sharedPreferences = getSharedPreferences("LegendPrefs_$uid", MODE_PRIVATE)
+
         if (sharedPreferences.getString("legendName", null) == null) {
             sharedPreferences.edit()
                 .putString("legendName", "Nuevo Usuario")

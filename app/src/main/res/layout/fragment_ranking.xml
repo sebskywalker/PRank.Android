@@ -1,15 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_orange_dark">
+    android:background="@android:color/black"
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvRanking"
-        android:layout_width="wrap_content"
+    <!-- Botones para cambiar la vista -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ranking Fragment"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:layout_gravity="center" />
-</FrameLayout>
+        android:gravity="center"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnBenchpress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Benchpress"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnSquat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Squat"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnDeadlift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Deadlift"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <!-- Gráfica -->
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="16dp" />
+
+    <!-- Leyenda -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/labelLeyenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leyenda: Rojo"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/labelTopGlobal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Top Global: Amarillo"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/labelProfesional"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profesional: Verde"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/labelUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuario: Magenta" />
+    </LinearLayout>
+</LinearLayout>

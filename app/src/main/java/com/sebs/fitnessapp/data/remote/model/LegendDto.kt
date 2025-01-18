@@ -30,7 +30,17 @@ data class LegendDto(
     @SerializedName("category")
     var category: String? = null,
 
-    var isUserCreated: Boolean = false // Nuevo campo
-)
-
-
+    var isUserCreated: Boolean = false  // Indica si fue creada por el usuario
+) {
+    /**
+     * Asigna automáticamente la categoría según el PR de Bench Press.
+     */
+    fun assignCategory() {
+        val benchPress = prBenchPress?.toIntOrNull() ?: 0
+        category = when {
+            benchPress >= 100 -> "Leyenda"
+            benchPress in 50..99 -> "Top Global"
+            else -> "Profesional"
+        }
+    }
+}

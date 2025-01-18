@@ -3,7 +3,6 @@ package com.sebs.fitnessapp.ui.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -41,33 +40,40 @@ class LegendListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializar SharedPreferences
         sharedPreferences = requireContext().getSharedPreferences("LegendPrefs", Context.MODE_PRIVATE)
         repository = (requireActivity().application as LegendRFApp).repository
 
-        // Llamada a la API
+        loadLegends()
+    }
+
+    private fun loadLegends() {
         val call: Call<MutableList<LegendDto>> = repository.getLegendsApiary()
         call.enqueue(object : Callback<MutableList<LegendDto>> {
             override fun onResponse(call: Call<MutableList<LegendDto>>, response: Response<MutableList<LegendDto>>) {
                 binding.pbLoading.visibility = View.GONE
                 response.body()?.let { legendList ->
-                    // Añadir la leyenda creada por el usuario si existe
                     val userLegend = loadUserLegendFromPreferences()
                     if (userLegend != null) {
-                        legendList.add(userLegend)
+                        legendList.add(userLegend)  // Agregar la leyenda personalizada
                     }
 
-                    // Agrupar por categorías
                     val groupedCategories = legendList.groupBy { it.category ?: "Sin categoría" }
                         .map { (category, legends) -> LegendCategory(category, legends) }
+                        .toMutableList()  // **Conversión a MutableList**
 
-                    // Configurar RecyclerView
                     adapter = LegendCategoryAdapter(groupedCategories) { legend ->
                         legend.id?.let { id ->
-                            requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container, LegendDetailFragment.newInstance(id))
-                                .addToBackStack(null)
-                                .commit()
+                            if (legend.isUserCreated || id == "user_legend") {
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container, UserLegendFragment())
+                                    .addToBackStack(null)
+                                    .commit()
+                            } else {
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container, LegendDetailFragment.newInstance(id))
+                                    .addToBackStack(null)
+                                    .commit()
+                            }
                         }
                     }
 
@@ -76,7 +82,6 @@ class LegendListFragment : Fragment() {
                         adapter = this@LegendListFragment.adapter
                     }
 
-                    // Configurar carrusel
                     setupCarousel()
                 }
             }
@@ -89,11 +94,7 @@ class LegendListFragment : Fragment() {
     }
 
     private fun setupCarousel() {
-        val imageResources = listOf(
-            R.drawable.feature1,
-            R.drawable.feature2,
-            R.drawable.feature4
-        )
+        val imageResources = listOf(R.drawable.feature1, R.drawable.feature2, R.drawable.feature4)
         val carouselAdapter = CarouselAdapter(imageResources)
         binding.vpCarousel.adapter = carouselAdapter
     }
@@ -102,19 +103,25 @@ class LegendListFragment : Fragment() {
         val name = sharedPreferences.getString("legendName", null) ?: return null
         val alias = sharedPreferences.getString("legendAlias", null) ?: return null
         val description = sharedPreferences.getString("legendDescription", null) ?: return null
-        val benchPress = sharedPreferences.getString("legendBenchPress", "0")
-        val squat = sharedPreferences.getString("legendSquat", "0")
-        val deadlift = sharedPreferences.getString("legendDeadlift", "0")
+        val benchPress = sharedPreferences.getString("legendBenchPress", "0") ?: "0"
+        val squat = sharedPreferences.getString("legendSquat", "0") ?: "0"
+        val deadlift = sharedPreferences.getString("legendDeadlift", "0") ?: "0"
         val imageUri = sharedPreferences.getString("legendImageUri", null)
-        val category = "Top Global" // Categoría por defecto para la leyenda del usuario
+
+        val category = when (benchPress.toIntOrNull() ?: 0) {
+            in 100..Int.MAX_VALUE -> "Leyenda"
+            in 50..99 -> "Top Global"
+            else -> "Profesional"
+        }
 
         return LegendDto(
-            id = "user_legend", // ID único
+            id = "user_${name}_${alias}",
             title = "$name $alias",
             thumbnail = imageUri,
             description = description,
             prBenchPress = benchPress,
-            category = category
+            category = category,
+            isUserCreated = true
         )
     }
 

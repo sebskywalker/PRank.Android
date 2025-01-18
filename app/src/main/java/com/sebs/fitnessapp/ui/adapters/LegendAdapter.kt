@@ -8,24 +8,25 @@ import com.sebs.fitnessapp.data.remote.model.LegendDto
 import com.sebs.fitnessapp.databinding.LegendElementBinding
 
 class LegendAdapter(
-    private val legends: List<LegendDto>,
+    private val legends: MutableList<LegendDto>,
     private val onLegendClick: (LegendDto) -> Unit,
-    private val onUserLegendClick: () -> Unit // Nuevo callback para la leyenda del usuario
+    private val onUserLegendClick: () -> Unit
 ) : RecyclerView.Adapter<LegendAdapter.LegendViewHolder>() {
 
     inner class LegendViewHolder(private val binding: LegendElementBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(legend: LegendDto) {
-            binding.tvTitle.text = legend.title ?: "Unknown"
+            binding.tvTitle.text = legend.title ?: "Sin título"
+
             Glide.with(binding.ivThumbnail.context)
-                .load(legend.thumbnail)
+                .load(legend.thumbnail ?: "")
                 .placeholder(android.R.color.darker_gray)
                 .into(binding.ivThumbnail)
 
             binding.root.setOnClickListener {
-                if (legend.id == "user_legend") {
-                    onUserLegendClick() // Si es la leyenda del usuario, invoca este callback
+                if (legend.isUserCreated || legend.id == "user_legend") {
+                    onUserLegendClick()
                 } else {
                     onLegendClick(legend)
                 }
@@ -43,4 +44,10 @@ class LegendAdapter(
     }
 
     override fun getItemCount(): Int = legends.size
+
+    fun updateLegends(newLegends: List<LegendDto>) {
+        legends.clear()
+        legends.addAll(newLegends)
+        notifyDataSetChanged()
+    }
 }
