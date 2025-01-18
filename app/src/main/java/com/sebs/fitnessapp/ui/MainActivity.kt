@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_men -> loadFragment(LegendListFragment())
-                R.id.nav_women -> loadFragment(WomenFragment())
+               // R.id.nav_women -> loadFragment(WomenFragment())
                 R.id.nav_ranking -> loadFragment(RankingFragment())
                 R.id.nav_map -> loadFragment(MapFragment())
                 R.id.nav_profile -> loadFragment(UserLegendFragment()) // Cambio aquí

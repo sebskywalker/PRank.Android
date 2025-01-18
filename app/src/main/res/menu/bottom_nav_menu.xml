@@ -4,10 +4,7 @@
         android:id="@+id/nav_men"
         android:icon="@drawable/ic_men"
         android:title="Men" />
-    <item
-        android:id="@+id/nav_women"
-        android:icon="@drawable/ic_women"
-        android:title="Women" />
+
     <item
         android:id="@+id/nav_ranking"
         android:icon="@drawable/ic_ranking"
