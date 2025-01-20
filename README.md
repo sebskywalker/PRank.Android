@@ -8,8 +8,6 @@
 ## **Requisitos Previos**
 - **Conexión a Internet**: La app requiere una conexión activa para funcionar correctamente.
 - **Cuenta de Usuario**: Ingresa con un correo electrónico y una contraseña mayor a 6 caracteres.
-  - **Correo de prueba**: `testuser@example.com`
-  - **Contraseña de prueba**: `password123`
 
 ---
 
@@ -71,19 +69,10 @@
 1. **Objetivo del App**: Facilitar la comparación y registro de marcas personales en el mundo del fitness, así como explorar gimnasios y leyendas destacadas.
 2. **Especificaciones del Logo**: Diseño minimalista y moderno para reflejar el dinamismo del fitness.
 3. **Compatibilidad**: Diseñado para dispositivos Android con orientación vertical.
-4. **Credenciales de Prueba**:
-   - **Correo**: `testuser@example.com`
-   - **Contraseña**: `password123`
-5. **Dependencias del Proyecto**:
+4. **Dependencias del Proyecto**:
    - Retrofit: Para la conexión con el backend.
    - Glide: Para la carga de imágenes.
    - MPAndroidChart: Para gráficos interactivos.
 
 ---
 
-## **Imágenes**
-Incluye capturas de las siguientes vistas:
-1. **Creación de Leyenda**.
-2. **Vista Principal**.
-3. **Ranking**.
-4. **Mapa de Gimnasios**.
